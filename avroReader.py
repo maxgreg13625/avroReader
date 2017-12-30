@@ -74,9 +74,10 @@ class AvroReader(QtGui.QWidget):
 		self.imageButtonList=list()
 		for rowIndex in range(len(recordList)):
 			for columnIndex in range(len(mainColumns)):
-				if mainColumns[columnIndex]['name']!='image':
+				#for the image column, only show button to generate additional window to display image
+				if mainColumns[columnIndex]['name'] in self.imageColumnList:
 					self.avroTable.setItem(rowIndex, columnIndex, QtGui.QTableWidgetItem(str(recordList[rowIndex][mainColumns[columnIndex]['name']])))
 				else:
-					self.imageButtonList.append(QtGui.QPushButton('IMAGE_{}'.format(str(rowIndex))))
+					self.imageButtonList.append(QtGui.QPushButton('{}_{}'.format(mainColumns[columnIndex]['name'], str(rowIndex))))
 					self.imageButtonList[rowIndex].clicked.connect(self.generateImage)
 					self.avroTable.setCellWidget(rowIndex, columnIndex, self.imageButtonList[rowIndex])

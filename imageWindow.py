@@ -10,13 +10,16 @@ class ImageWindow(QtGui.QWidget):
 
 		self.setWindowTitle(title)
 		self.resize(300,200)
+		
+		#title is made by imageColumn_rowIndex
 		tempList=title.split('_')
 		rowIndex=tempList[len(tempList)-1]
 		
 		recordList=cf.readAvro(avroFileName)
 		self.imageLabel=QtGui.QLabel()
 		image=QtGui.QImage()
-		image.loadFromData(QtCore.QByteArray.fromBase64(str(recordList[int(rowIndex)]['image'])), 'JPG')
+		#assume all image are JPG type
+		image.loadFromData(QtCore.QByteArray.fromBase64(str(recordList[int(rowIndex)][tempList[0]])), 'JPG')
 		self.imageLabel.setPixmap(QtGui.QPixmap.fromImage(image))
 
 		verticalLayout=QtGui.QVBoxLayout()
