@@ -7,14 +7,19 @@ def readConfig():
 	config=ConfigParser.ConfigParser()
 	config.read('config.ini')
 	imageColumnList=config.get('DEFAULT', 'IMAGE_COLUMN_LIST').split('|')
+	imageTypeList=config.get('DEFAULT', 'IMAGE_TYPE_LIST').split('|')
 
-	return imageColumnList
+	#make all config as dict
+	configDict=dict()
+	configDict['IMAGE_COLUMN_LIST']=imageColumnList
+	configDict['IMAGE_TYPE_LIST']=imageTypeList
+	return configDict
 
 def main():
-	imageColumnList=readConfig()
+	configDict=readConfig()
 
 	app=QtGui.QApplication(sys.argv)
-	mainWindow=ar.AvroReader(imageColumnList)
+	mainWindow=ar.AvroReader(configDict)
 	mainWindow.show()
 	app.exec_()
 

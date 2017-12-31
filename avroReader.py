@@ -3,12 +3,13 @@ import commonFunction as cf
 import imageWindow as im
 
 class AvroReader(QtGui.QWidget):
-	def __init__(self, imageColumnList):
+	def __init__(self, configDict):
 		#initialize parent class
 		QtGui.QWidget.__init__(self)
 
-		self.imageColumnList=imageColumnList
-		
+		self.imageColumnList=configDict['IMAGE_COLUMN_LIST']
+		self.imageTypeList=configDict['IMAGE_TYPE_LIST']
+
 		self.setWindowTitle('AvroReader Ver 0.1')
 		self.resize(300,200)
 
@@ -49,9 +50,11 @@ class AvroReader(QtGui.QWidget):
 	def generateImage(self):
 		#check which button triger event
 		button=self.sender()
-		self.imageWindow=im.ImageWindow(button.text(), self.fileSelectText.text())
+
+		tempList=button.text().split('_')
+		self.imageWindow=im.ImageWindow(button.text(), self.fileSelectText.text(), self.imageTypeList[self.imageColumnList.index(tempList[0])])
 		self.imageWindow.show()		
-		
+
 	def setAvroContent(self):
 		#clear content and table
 		self.avroSchemaText.setText('')
@@ -68,16 +71,17 @@ class AvroReader(QtGui.QWidget):
 		self.avroTable.setColumnCount(len(mainColumns))
 		for columnIndex in range(len(mainColumns)):
 			self.avroTable.setHorizontalHeaderItem(columnIndex, QtGui.QTableWidgetItem(mainColumns[columnIndex]['name']))
-		
+
 		#set each record
 		self.avroTable.setRowCount(len(recordList))
-		self.imageButtonList=list()
+		self.imageButtonDict=dict()
 		for rowIndex in range(len(recordList)):
 			for columnIndex in range(len(mainColumns)):
 				#for the image column, only show button to generate additional window to display image
-				if mainColumns[columnIndex]['name'] in self.imageColumnList:
+				if mainColumns[columnIndex]['name'] not in self.imageColumnList:
 					self.avroTable.setItem(rowIndex, columnIndex, QtGui.QTableWidgetItem(str(recordList[rowIndex][mainColumns[columnIndex]['name']])))
 				else:
-					self.imageButtonList.append(QtGui.QPushButton('{}_{}'.format(mainColumns[columnIndex]['name'], str(rowIndex))))
-					self.imageButtonList[rowIndex].clicked.connect(self.generateImage)
-					self.avroTable.setCellWidget(rowIndex, columnIndex, self.imageButtonList[rowIndex])
+					imageIndex='{}_{}'.format(str(mainColumns[columnIndex]['name']), str(rowIndex))
+					self.imageButtonDict[imageIndex]=QtGui.QPushButton(imageIndex)
+					self.imageButtonDict[imageIndex].clicked.connect(self.generateImage)
+					self.avroTable.setCellWidget(rowIndex, columnIndex, self.imageButtonDict[imageIndex])
