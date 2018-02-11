@@ -18,7 +18,7 @@ class ImageWindow(QtGui.QWidget):
 		image=QtGui.QImage()
 		image.loadFromData(QtCore.QByteArray.fromBase64(recordList[int(rowIndex)][str(tempList[0])]), imgType)
 		if image.width()>1500 or image.height()>1500:
-			image=image.scaled(image.width()/3, image.height()/3)
+			image=image.scaled(image.width()/4, image.height()/4)
 		self.imageLabel.setPixmap(QtGui.QPixmap.fromImage(image))
 
 		#add scroll bar for image view

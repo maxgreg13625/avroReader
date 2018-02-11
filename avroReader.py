@@ -10,7 +10,7 @@ class AvroReader(QtGui.QWidget):
 		self.imageColumnList=configDict['IMAGE_COLUMN_LIST']
 		self.imageTypeList=configDict['IMAGE_TYPE_LIST']
 
-		self.setWindowTitle('AvroReader Ver 0.1')
+		self.setWindowTitle('AvroReader Ver 0.2')
 		self.resize(300,200)
 
 		fileSelectLayout=QtGui.QHBoxLayout()
@@ -39,6 +39,9 @@ class AvroReader(QtGui.QWidget):
 		verticalLayout.addWidget(self.avroTable)	
 		self.setLayout(verticalLayout)
 
+		#list to save image window
+		self.imageWindowList=list()
+
 	def selectFile(self):
 		#clear content
 		self.fileSelectText.setText('')
@@ -52,8 +55,9 @@ class AvroReader(QtGui.QWidget):
 		button=self.sender()
 
 		tempList=button.text().split('_')
-		self.imageWindow=im.ImageWindow(button.text(), self.fileSelectText.text(), self.imageTypeList[self.imageColumnList.index(tempList[0])])
-		self.imageWindow.show()		
+		imageWindow=im.ImageWindow(button.text(), self.fileSelectText.text(), self.imageTypeList[self.imageColumnList.index(tempList[0])])
+		imageWindow.show()
+		self.imageWindowList.append(imageWindow)
 
 	def setAvroContent(self):
 		#clear content and table
@@ -81,7 +85,9 @@ class AvroReader(QtGui.QWidget):
 				if mainColumns[columnIndex]['name'] not in self.imageColumnList:
 					self.avroTable.setItem(rowIndex, columnIndex, QtGui.QTableWidgetItem(str(recordList[rowIndex][mainColumns[columnIndex]['name']])))
 				else:
-					imageIndex='{}_{}'.format(str(mainColumns[columnIndex]['name']), str(rowIndex))
-					self.imageButtonDict[imageIndex]=QtGui.QPushButton(imageIndex)
-					self.imageButtonDict[imageIndex].clicked.connect(self.generateImage)
-					self.avroTable.setCellWidget(rowIndex, columnIndex, self.imageButtonDict[imageIndex])
+					#image cell may not contain image string
+					if str(recordList[rowIndex][mainColumns[columnIndex]['name']])!='':
+						imageIndex='{}_{}'.format(str(mainColumns[columnIndex]['name']), str(rowIndex))
+						self.imageButtonDict[imageIndex]=QtGui.QPushButton(imageIndex)
+						self.imageButtonDict[imageIndex].clicked.connect(self.generateImage)
+						self.avroTable.setCellWidget(rowIndex, columnIndex, self.imageButtonDict[imageIndex])
