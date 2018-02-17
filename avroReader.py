@@ -1,6 +1,6 @@
 from PyQt4 import QtGui, QtCore
 import commonFunction as cf
-import imageWindow as im
+import buttonWindow as bw
 
 class AvroReader(QtGui.QWidget):
 	def __init__(self, configDict):
@@ -40,7 +40,7 @@ class AvroReader(QtGui.QWidget):
 		self.setLayout(verticalLayout)
 
 		#list to save image window
-		self.imageWindowList=list()
+		self.buttonWindowList=list()
 
 	def selectFile(self):
 		#clear content
@@ -55,9 +55,9 @@ class AvroReader(QtGui.QWidget):
 		button=self.sender()
 
 		tempList=button.text().split('_')
-		imageWindow=im.ImageWindow(button.text(), self.fileSelectText.text(), self.imageTypeList[self.imageColumnList.index(tempList[0])])
-		imageWindow.show()
-		self.imageWindowList.append(imageWindow)
+		buttonWindow=bw.ButtonWindow(button.text(), self.fileSelectText.text(), self.imageTypeList[self.imageColumnList.index(tempList[0])])
+		buttonWindow.show()
+		self.buttonWindowList.append(buttonWindow)
 
 	def setAvroContent(self):
 		#clear content and table
