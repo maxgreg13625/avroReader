@@ -1,2 +1,5 @@
 *.swp
 *.pyc
+*JPG
+*PNG
+*Text
