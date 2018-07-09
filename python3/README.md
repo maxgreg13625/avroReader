@@ -10,7 +10,9 @@ IMAGE_TYPE_LIST=JPG|PNG|PNG
 
 ## before execution
 In order to execute this program, it need to install PyQt4 and fastavro.  
-$ sudo apt-get install python-qt4  
-$ sudo pip install -Iv Cython==0.25.0  #fastavro depends Cython 0.25.0  
+$ sudo pip install pyqt5  
+$ sudo pip install Cython  
 $ sudo pip install fastavro  
 
+## execution
+$ python main.py
