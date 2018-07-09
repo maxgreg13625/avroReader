@@ -47,7 +47,7 @@ class AvroReader(QtWidgets.QWidget):
 		self.fileSelectText.setText('')
 
 		fileName,_=QtWidgets.QFileDialog.getOpenFileName(self, 'Open')
-		if not fileName=='':
+		if fileName!='':
 			self.fileSelectText.setText(fileName)
 
 	def generateImage(self):

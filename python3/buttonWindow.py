@@ -48,4 +48,7 @@ class ButtonWindow(QtWidgets.QWidget):
 		imgName=strftime('%Y%m%d%H%M%S', gmtime())
 
 		with open('{}.{}'.format(imgName, buttonType), 'wb') as f:
-			f.write(base64.b64decode(self.content))
+			if buttonType!='Text':
+				f.write(base64.b64decode(self.content))
+			else:
+				f.write(self.content)
