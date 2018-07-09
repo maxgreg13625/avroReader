@@ -14,3 +14,8 @@ def readAvro(fileName, withSchema=False):
 		return recordList, schema
 	else:
 		return recordList
+
+def getAvroRecord(fileName, row, column):
+	recordList=readAvro(fileName)
+
+	return recordList[int(row)][column]
