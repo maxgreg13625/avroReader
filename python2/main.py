@@ -6,13 +6,13 @@ import sys
 def readConfig():
 	config=ConfigParser.ConfigParser()
 	config.read('../config/config.ini')
-	imageColumnList=config.get('DEFAULT', 'IMAGE_COLUMN_LIST').split('|')
-	imageTypeList=config.get('DEFAULT', 'IMAGE_TYPE_LIST').split('|')
+	imageColumnList=config.get('DEFAULT', 'BUTTON_COLUMN_LIST').split('|')
+	imageTypeList=config.get('DEFAULT', 'BUTTON_TYPE_LIST').split('|')
 
 	#make all config as dict
 	configDict=dict()
-	configDict['IMAGE_COLUMN_LIST']=imageColumnList
-	configDict['IMAGE_TYPE_LIST']=imageTypeList
+	configDict['BUTTON_COLUMN_LIST']=imageColumnList
+	configDict['BUTTON_TYPE_LIST']=imageTypeList
 	return configDict
 
 def main():

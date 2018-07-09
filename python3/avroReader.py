@@ -7,10 +7,10 @@ class AvroReader(QtWidgets.QWidget):
 		#initialize parent class
 		QtWidgets.QWidget.__init__(self)
 
-		self.imageColumnList=configDict['IMAGE_COLUMN_LIST']
-		self.imageTypeList=configDict['IMAGE_TYPE_LIST']
+		self.imageColumnList=configDict['BUTTON_COLUMN_LIST']
+		self.imageTypeList=configDict['BUTTON_TYPE_LIST']
 
-		self.setWindowTitle('AvroReader Ver 0.3.5')
+		self.setWindowTitle('AvroReader Ver 0.7')
 		self.resize(300,200)
 
 		fileSelectLayout=QtWidgets.QHBoxLayout()
