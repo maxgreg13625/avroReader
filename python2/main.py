@@ -5,7 +5,7 @@ import sys
 
 def readConfig():
 	config=ConfigParser.ConfigParser()
-	config.read('../config/config.ini')
+	config.read('./config.ini')
 	imageColumnList=config.get('DEFAULT', 'BUTTON_COLUMN_LIST').split('|')
 	imageTypeList=config.get('DEFAULT', 'BUTTON_TYPE_LIST').split('|')
 
