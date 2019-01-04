@@ -15,8 +15,8 @@ $ sudo pip install Cython
 $ sudo pip install fastavro  
 
 ## in order to decompress snappy avro, we need python-snappy instead of snappy
-$ sudo pip uninstall snappy
-$ sudo pip install python-snappy
+$ sudo pip uninstall snappy  
+$ sudo pip install python-snappy  
 
 ## execution
 $ python main.py
