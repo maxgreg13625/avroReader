@@ -9,10 +9,14 @@ IMAGE_COLUMN_LIST=image|corrected|uncorrected
 IMAGE_TYPE_LIST=JPG|PNG|PNG  
 
 ## before execution
-In order to execute this program, it need to install PyQt4 and fastavro.  
+In order to execute this program, it need to install PyQt5 and fastavro.  
 $ sudo pip install pyqt5  
 $ sudo pip install Cython  
 $ sudo pip install fastavro  
+
+## in order to decompress snappy with snappy format, we need python-snappy instead of snappy
+$ sudo pip uninstall snappy
+$ sudo pip install python-snappy
 
 ## execution
 $ python main.py
